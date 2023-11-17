@@ -134,7 +134,7 @@ final List<ShareOption> shareOptions = [
     },
   ),
   ShareOption(
-    icon: FontAwesomeIcons.commentDots,
+    icon: Icons.more_horiz_sharp,
     label: 'others',
     onTap: () {
       // Handle share via other apps
