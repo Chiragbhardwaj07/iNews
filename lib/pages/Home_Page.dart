@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inews/pages/choose_CategoryScreen.dart';
 import 'package:inews/pages/news_detail.dart';
+import 'package:inews/utils/drawer.dart';
 import 'package:inews/view_model/news_view_model.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +25,11 @@ class _Home_PageState extends State<Home_Page> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      drawer: ComplexDrawer(),
       appBar: AppBar(
+        iconTheme: IconTheme.of(context).copyWith(
+          color: Colors.black,
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
         actions: [
@@ -57,6 +62,16 @@ class _Home_PageState extends State<Home_Page> {
                         child: SpinKitFadingCircle(
                       color: Colors.black,
                     ));
+                  } else if (snapshot.hasError) {
+                    print('Error: ${snapshot.error}');
+                    return Center(
+                      child: Text('Error loading data'),
+                    );
+                  } else if (snapshot.data == null ||
+                      snapshot.data!.articles == null) {
+                    return Center(
+                      child: Text('No data available'),
+                    );
                   } else {
                     return ListView.builder(
                         shrinkWrap: true,
@@ -233,6 +248,16 @@ class _Home_PageState extends State<Home_Page> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return SpinKitFadingCircle(
                         color: Colors.black,
+                      );
+                    } else if (snapshot.hasError) {
+                      print('Error: ${snapshot.error}');
+                      return Center(
+                        child: Text('Error loading data'),
+                      );
+                    } else if (snapshot.data == null ||
+                        snapshot.data!.articles == null) {
+                      return Center(
+                        child: Text('No data available'),
                       );
                     } else {
                       return ListView.builder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inews/utils/shareSheet.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -39,6 +40,13 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    showShareBottomSheet(context);
+                  },
+                  icon: Icon(Icons.share))
+            ],
             expandedHeight: Kheight * 0.45,
             floating: false,
             pinned: true,

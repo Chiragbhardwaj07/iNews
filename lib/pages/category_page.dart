@@ -65,8 +65,9 @@ class _Category_pageState extends State<Category_page> {
                       color: Colors.black,
                     ));
                   } else if (snapshot.hasError) {
+                    print('Error: ${snapshot.error}');
                     return Center(
-                      child: Text('Error: ${snapshot.error}'),
+                      child: Text('Error loading data'),
                     );
                   } else if (snapshot.data == null ||
                       snapshot.data!.articles == null) {
