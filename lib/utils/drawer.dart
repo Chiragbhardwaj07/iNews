@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:inews/pages/category_page.dart';
+import 'package:inews/pages/test.dart';
 
 class ComplexDrawer extends StatefulWidget {
   const ComplexDrawer({Key? key}) : super(key: key);
@@ -49,7 +51,12 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                 return cdms[index].submenus.isEmpty
                     ? ListTile(
                         onTap: () {
-                          Navigator.pushNamed(context, '/test');
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    Category_page(categ: 'new'),
+                              ));
                         },
                         leading: Icon(cdm.icon, color: Colors.white),
                         title: Text(
@@ -231,7 +238,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
     CDM(Icons.grid_view, "Category", [], '/test'),
     CDM(Icons.location_on_outlined, "Locations",
         ["US", "England", "India", "China"], '/test'),
-    CDM(Icons.settings_input_antenna, "Channels", ["Add", "Edit", "Delete"],
+    CDM(Icons.settings_input_antenna, "Channels", ["BCC", "CNN", "Hindustan"],
         '/test'),
     CDM(Icons.trending_up, "Trending", [], '/test'),
     CDM(Icons.explore, "Explore", [], '/test'),

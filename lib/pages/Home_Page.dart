@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inews/pages/category_page.dart';
 import 'package:inews/pages/choose_CategoryScreen.dart';
 import 'package:inews/pages/news_detail.dart';
+import 'package:inews/pages/settings.dart';
 import 'package:inews/utils/drawer.dart';
 import 'package:inews/view_model/news_view_model.dart';
 import 'package:intl/intl.dart';
@@ -45,6 +46,15 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                 Icons.grid_view_rounded,
                 color: Colors.white,
               )),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Settings(),
+                    ));
+              },
+              icon: Icon(Icons.settings))
         ],
         elevation: 0,
         title: Text(
