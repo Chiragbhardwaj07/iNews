@@ -40,6 +40,8 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            backgroundColor: Colors.black,
+            title: Text('By ${widget.newsAuthor}'),
             actions: [
               IconButton(
                   onPressed: () {
@@ -47,7 +49,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                   },
                   icon: Icon(Icons.share))
             ],
-            expandedHeight: Kheight * 0.45,
+            expandedHeight: Kheight * 0.35,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -65,11 +67,11 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                 Container(
                   padding: EdgeInsets.only(top: 20, right: 20, left: 20),
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+                    color: Colors.black87,
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(30),
+                    //   topRight: Radius.circular(30),
+                    // ),
                   ),
                   child: SingleChildScrollView(
                     child: Column(
@@ -79,7 +81,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                           '${widget.newsTitle}',
                           style: GoogleFonts.poppins(
                             fontSize: 20,
-                            color: Colors.black87,
+                            color: Colors.white,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -105,7 +107,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                               '${format.format(dateTime)}',
                               style: GoogleFonts.poppins(
                                 fontSize: 12,
-                                color: Colors.black87,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -115,10 +117,75 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
                           height: Kheight * 0.03,
                         ),
                         Text(
+                          '${widget.newsDesc}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines:
+                              null, // Set maxLines to null for unlimited lines
+                        ),
+                        SizedBox(
+                          height: Kheight * 0.04,
+                        ),
+                        Text(
                           '${widget.newsContent}',
                           style: GoogleFonts.poppins(
                             fontSize: 15,
-                            color: Colors.black87,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines:
+                              null, // Set maxLines to null for unlimited lines
+                        ),
+                        SizedBox(
+                          height: Kheight * 0.03,
+                        ),
+                        Text(
+                          '${widget.newsDesc}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines:
+                              null, // Set maxLines to null for unlimited lines
+                        ),
+                        SizedBox(
+                          height: Kheight * 0.04,
+                        ),
+                        Text(
+                          '${widget.newsContent}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines:
+                              null, // Set maxLines to null for unlimited lines
+                        ),
+                        SizedBox(
+                          height: Kheight * 0.03,
+                        ),
+                        Text(
+                          '${widget.newsDesc}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines:
+                              null, // Set maxLines to null for unlimited lines
+                        ),
+                        SizedBox(
+                          height: Kheight * 0.04,
+                        ),
+                        Text(
+                          '${widget.newsContent}',
+                          style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
                           maxLines:

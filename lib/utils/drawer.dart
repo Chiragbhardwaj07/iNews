@@ -45,29 +45,50 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
 
                 CDM cdm = cdms[index];
                 bool selected = selectedIndex == index;
-                return ExpansionTile(
-                    onExpansionChanged: (z) {
-                      setState(() {
-                        selectedIndex = z ? index : -1;
-                      });
-                    },
-                    leading: Icon(cdm.icon, color: Colors.white),
-                    title: Text(
-                      cdm.title,
-                      style: GoogleFonts.poppins(
-                          color: selected ? Colors.white : Colors.grey),
-                    ),
-                    trailing: cdm.submenus.isEmpty
-                        ? null
-                        : Icon(
-                            selected
-                                ? Icons.keyboard_arrow_up
-                                : Icons.keyboard_arrow_down,
-                            color: Colors.white,
-                          ),
-                    children: cdm.submenus.map((subMenu) {
-                      return sMenuButton(subMenu, false);
-                    }).toList());
+
+                return cdms[index].submenus.isEmpty
+                    ? ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/test');
+                        },
+                        leading: Icon(cdm.icon, color: Colors.white),
+                        title: Text(
+                          cdm.title,
+                          style: GoogleFonts.poppins(
+                              color: selected ? Colors.white : Colors.grey),
+                        ),
+                        trailing: cdm.submenus.isEmpty
+                            ? null
+                            : Icon(
+                                selected
+                                    ? Icons.keyboard_arrow_up
+                                    : Icons.keyboard_arrow_down,
+                                color: Colors.white,
+                              ),
+                      )
+                    : ExpansionTile(
+                        onExpansionChanged: (z) {
+                          setState(() {
+                            selectedIndex = z ? index : -1;
+                          });
+                        },
+                        leading: Icon(cdm.icon, color: Colors.white),
+                        title: Text(
+                          cdm.title,
+                          style: GoogleFonts.poppins(
+                              color: selected ? Colors.white : Colors.grey),
+                        ),
+                        trailing: cdm.submenus.isEmpty
+                            ? null
+                            : Icon(
+                                selected
+                                    ? Icons.keyboard_arrow_up
+                                    : Icons.keyboard_arrow_down,
+                                color: Colors.white,
+                              ),
+                        children: cdm.submenus.map((subMenu) {
+                          return sMenuButton(subMenu, false);
+                        }).toList());
               },
             ),
           ),
@@ -207,13 +228,14 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
   }
 
   static List<CDM> cdms = [
-    CDM(Icons.grid_view, "Category", []),
+    CDM(Icons.grid_view, "Category", [], '/test'),
     CDM(Icons.location_on_outlined, "Locations",
-        ["US", "England", "India", "China"]),
-    CDM(Icons.settings_input_antenna, "Channels", ["Add", "Edit", "Delete"]),
-    CDM(Icons.trending_up, "Trending", []),
-    CDM(Icons.explore, "Explore", []),
-    CDM(Icons.settings, "Settings", []),
+        ["US", "England", "India", "China"], '/test'),
+    CDM(Icons.settings_input_antenna, "Channels", ["Add", "Edit", "Delete"],
+        '/test'),
+    CDM(Icons.trending_up, "Trending", [], '/test'),
+    CDM(Icons.explore, "Explore", [], '/test'),
+    CDM(Icons.settings, "Settings", [], '/test'),
   ];
 
   void expandOrShrinkDrawer() {
@@ -227,6 +249,7 @@ class CDM {
   IconData icon;
   String title;
   List<String> submenus;
+  String route;
 
-  CDM(this.icon, this.title, this.submenus);
+  CDM(this.icon, this.title, this.submenus, this.route);
 }

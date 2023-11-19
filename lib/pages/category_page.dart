@@ -24,6 +24,7 @@ class _Category_pageState extends State<Category_page> {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
@@ -31,13 +32,13 @@ class _Category_pageState extends State<Category_page> {
             },
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.white,
             )),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         centerTitle: true,
         title: Text(
           widget.categ.toUpperCase(),
-          style: GoogleFonts.poppins(color: Colors.black, letterSpacing: 2),
+          style: GoogleFonts.poppins(color: Colors.white, letterSpacing: 2),
         ),
         actions: [
           IconButton(
@@ -47,7 +48,7 @@ class _Category_pageState extends State<Category_page> {
               },
               icon: Icon(
                 Icons.grid_view_rounded,
-                color: Colors.black,
+                color: Colors.white,
               ))
         ],
       ),
@@ -62,7 +63,7 @@ class _Category_pageState extends State<Category_page> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                         child: SpinKitFadingCircle(
-                      color: Colors.black,
+                      color: Colors.white,
                     ));
                   } else if (snapshot.hasError) {
                     print('Error: ${snapshot.error}');
@@ -132,7 +133,7 @@ class _Category_pageState extends State<Category_page> {
                                             fit: BoxFit.cover,
                                             placeholder: (context, url) =>
                                                 SpinKitFadingCircle(
-                                              color: Colors.black,
+                                              color: Colors.white,
                                             ),
                                             errorWidget:
                                                 (context, url, error) => Icon(
@@ -145,6 +146,7 @@ class _Category_pageState extends State<Category_page> {
                                       Positioned(
                                         bottom: 5,
                                         child: Card(
+                                          color: Colors.grey[800],
                                           elevation: 5,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
@@ -175,6 +177,8 @@ class _Category_pageState extends State<Category_page> {
                                                           TextOverflow.ellipsis,
                                                       style:
                                                           GoogleFonts.poppins(
+                                                              color:
+                                                                  Colors.white,
                                                               fontSize: 17,
                                                               fontWeight:
                                                                   FontWeight
@@ -243,7 +247,7 @@ class _Category_pageState extends State<Category_page> {
                                                             GoogleFonts.poppins(
                                                                 fontSize: 11,
                                                                 color: Colors
-                                                                    .black,
+                                                                    .white,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500),
