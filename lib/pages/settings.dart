@@ -29,12 +29,24 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   height: size.height * 0.04,
                 ),
-                const Text(
-                  'Settings',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back_ios)),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    const Text(
+                      'Settings',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: size.height * 0.04,

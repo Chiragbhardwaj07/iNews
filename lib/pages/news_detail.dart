@@ -41,7 +41,10 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.black,
-            title: Text('By ${widget.newsAuthor}'),
+            title: Text(
+              'By ${widget.newsAuthor}',
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+            ),
             actions: [
               IconButton(
                   onPressed: () {
