@@ -11,6 +11,7 @@ import 'package:inews/pages/settings.dart';
 import 'package:inews/utils/drawer.dart';
 import 'package:inews/view_model/news_view_model.dart';
 import 'package:intl/intl.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Home_Page extends StatefulWidget {
   const Home_Page({super.key});
@@ -117,84 +118,83 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                       child: Text('No data available'),
                     );
                   } else {
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.articles!.length,
-                        itemBuilder: (context, index) {
-                          DateTime datetime = DateTime.parse(snapshot
-                              .data!.articles![index].publishedAt
-                              .toString());
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NewsDetailScreen(
-                                      snapshot.data!.articles![index].urlToImage
+                    return CarouselSlider.builder(
+                      itemCount: snapshot.data!.articles!.length,
+                      itemBuilder: (context, index, realIndex) {
+                        DateTime datetime = DateTime.parse(
+                          snapshot.data!.articles![index].publishedAt
+                              .toString(),
+                        );
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NewsDetailScreen(
+                                  snapshot.data!.articles![index].urlToImage
+                                      .toString(),
+                                  snapshot.data!.articles![index].title
+                                      .toString(),
+                                  snapshot.data!.articles![index].publishedAt
+                                      .toString(),
+                                  snapshot.data!.articles![index].author
+                                      .toString(),
+                                  snapshot.data!.articles![index].description
+                                      .toString(),
+                                  snapshot.data!.articles![index].content
+                                      .toString(),
+                                  snapshot.data!.articles![index].source
+                                      .toString(),
+                                ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.04),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: height * 0.6,
+                                  width: width * 0.9,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl: snapshot
+                                          .data!.articles![index].urlToImage
                                           .toString(),
-                                      snapshot.data!.articles![index].title
-                                          .toString(),
-                                      snapshot
-                                          .data!.articles![index].publishedAt
-                                          .toString(),
-                                      snapshot.data!.articles![index].author
-                                          .toString(),
-                                      snapshot
-                                          .data!.articles![index].description
-                                          .toString(),
-                                      snapshot.data!.articles![index].content
-                                          .toString(),
-                                      snapshot.data!.articles![index].source
-                                          .toString(),
-                                    ),
-                                  ));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: width * 0.04),
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                    height: height * 0.6,
-                                    width: width * 0.9,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: CachedNetworkImage(
-                                        imageUrl: snapshot
-                                            .data!.articles![index].urlToImage
-                                            .toString(),
-                                        fit: BoxFit.cover,
-                                        placeholder: (context, url) =>
-                                            SpinKitFadingCircle(
-                                          color: Colors.white,
-                                        ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(
-                                          Icons.error_rounded,
-                                          color: Colors.red,
-                                        ),
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) =>
+                                          SpinKitFadingCircle(
+                                        color: Colors.white,
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(
+                                        Icons.error_rounded,
+                                        color: Colors.red,
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 7.5,
-                                    child: Card(
-                                      color: Colors.grey[800],
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      child: Container(
-                                        height: height * 0.22,
-                                        color: Colors.transparent,
-                                        alignment: Alignment.bottomCenter,
-                                        child: Center(
-                                            child: Column(
+                                ),
+                                Positioned(
+                                  bottom: 7.5,
+                                  child: Card(
+                                    color: Colors.grey[800],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Container(
+                                      height: height * 0.22,
+                                      color: Colors.transparent,
+                                      alignment: Alignment.bottomCenter,
+                                      child: Center(
+                                        child: Column(
                                           children: [
                                             Container(
                                               color: Colors.transparent,
-                                              width: width * 0.85,
+                                              width: width * 0.75,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.all(8.0),
@@ -206,19 +206,20 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 17,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.w700),
+                                                    fontSize: 17,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                             Container(
-                                              width: width * 0.85,
+                                              width: width * 0.75,
                                               child: Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
-                                                        horizontal: 8),
+                                                  horizontal: 8,
+                                                ),
                                                 child: Text(
                                                   snapshot
                                                       .data!
@@ -228,10 +229,10 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                                                   maxLines: 2,
                                                   overflow: TextOverflow.fade,
                                                   style: GoogleFonts.poppins(
-                                                      fontSize: 11,
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                          FontWeight.w400),
+                                                    fontSize: 11,
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -239,7 +240,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                                               height: height * 0.02,
                                             ),
                                             Container(
-                                              width: width * 0.85,
+                                              width: width * 0.75,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -256,32 +257,43 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: GoogleFonts.poppins(
-                                                        fontSize: 11,
-                                                        color: Colors.blue,
-                                                        fontWeight:
-                                                            FontWeight.w700),
+                                                      fontSize: 11,
+                                                      color: Colors.blue,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
                                                   ),
                                                   Text(
                                                     format.format(datetime),
                                                     style: GoogleFonts.poppins(
-                                                        fontSize: 11,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w500),
+                                                      fontSize: 11,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
                                             )
                                           ],
-                                        )),
+                                        ),
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
+                                  ),
+                                )
+                              ],
                             ),
-                          );
-                        });
+                          ),
+                        );
+                      },
+                      options: CarouselOptions(
+                        autoPlayAnimationDuration: Duration(seconds: 2),
+                        height: height * 0.3,
+                        autoPlay: true,
+                        viewportFraction: 0.9,
+                        enlargeCenterPage: true,
+                      ),
+                    );
                   }
                 }),
           ),

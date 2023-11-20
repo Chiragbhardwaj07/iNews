@@ -79,222 +79,229 @@ class _SearchState extends State<Search> {
               style: GoogleFonts.poppins(fontSize: 24, color: Colors.white),
             ),
           ),
-          SizedBox(
-            height: height * 0.65,
-            width: width,
-            child: FutureBuilder(
-                future:
-                    newsViewModel.FetchCategoriesNewsapi(searchController.text),
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: SpinKitFadingCircle(
-                      color: Colors.white,
-                    ));
-                  } else if (snapshot.hasError) {
-                    print('Error: ${snapshot.error}');
-                    return Center(
-                      child: Text('Error loading data'),
-                    );
-                  } else if (snapshot.data == null ||
-                      snapshot.data!.articles == null) {
-                    return Center(
-                      child: Text('No data available'),
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data!.articles!.length,
-                          itemBuilder: (context, index) {
-                            DateTime datetime = DateTime.parse(snapshot
-                                .data!.articles![index].publishedAt
-                                .toString());
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NewsDetailScreen(
-                                          snapshot
-                                              .data!.articles![index].urlToImage
-                                              .toString(),
-                                          snapshot.data!.articles![index].title
-                                              .toString(),
-                                          snapshot.data!.articles![index]
-                                              .publishedAt
-                                              .toString(),
-                                          snapshot.data!.articles![index].author
-                                              .toString(),
-                                          snapshot.data!.articles![index]
-                                              .description
-                                              .toString(),
-                                          snapshot
-                                              .data!.articles![index].content
-                                              .toString(),
-                                          snapshot.data!.articles![index].source
-                                              .toString(),
-                                        ),
-                                      ));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: width * 0.04),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        height: height * 0.45,
-                                        width: width * 0.9,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          child: CachedNetworkImage(
-                                            imageUrl: snapshot.data!
-                                                .articles![index].urlToImage
+          Expanded(
+            child: SizedBox(
+              // height: height * 0.65,
+              // width: width,
+              child: FutureBuilder(
+                  future: newsViewModel.FetchCategoriesNewsapi(
+                      searchController.text),
+                  builder: (BuildContext context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                          child: SpinKitFadingCircle(
+                        color: Colors.white,
+                      ));
+                    } else if (snapshot.hasError) {
+                      print('Error: ${snapshot.error}');
+                      return Center(
+                        child: Text('Error loading data'),
+                      );
+                    } else if (snapshot.data == null ||
+                        snapshot.data!.articles == null) {
+                      return Center(
+                        child: Text('No data available'),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.data!.articles!.length,
+                            itemBuilder: (context, index) {
+                              DateTime datetime = DateTime.parse(snapshot
+                                  .data!.articles![index].publishedAt
+                                  .toString());
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NewsDetailScreen(
+                                            snapshot.data!.articles![index]
+                                                .urlToImage
                                                 .toString(),
-                                            fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                                SpinKitFadingCircle(
-                                              color: Colors.white,
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) => Icon(
-                                              Icons.error_rounded,
-                                              color: Colors.red,
+                                            snapshot
+                                                .data!.articles![index].title
+                                                .toString(),
+                                            snapshot.data!.articles![index]
+                                                .publishedAt
+                                                .toString(),
+                                            snapshot
+                                                .data!.articles![index].author
+                                                .toString(),
+                                            snapshot.data!.articles![index]
+                                                .description
+                                                .toString(),
+                                            snapshot
+                                                .data!.articles![index].content
+                                                .toString(),
+                                            snapshot
+                                                .data!.articles![index].source
+                                                .toString(),
+                                          ),
+                                        ));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width * 0.04),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          height: height * 0.45,
+                                          width: width * 0.9,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            child: CachedNetworkImage(
+                                              imageUrl: snapshot.data!
+                                                  .articles![index].urlToImage
+                                                  .toString(),
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  SpinKitFadingCircle(
+                                                color: Colors.white,
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) => Icon(
+                                                Icons.error_rounded,
+                                                color: Colors.red,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        bottom: 5,
-                                        child: Card(
-                                          color: Colors.grey[800],
-                                          elevation: 5,
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          child: Container(
-                                            height: height * 0.22,
-                                            width: width * 0.80,
-                                            color: Colors.transparent,
-                                            alignment: Alignment.bottomCenter,
-                                            child: Center(
-                                                child: Column(
-                                              children: [
-                                                Container(
-                                                  color: Colors.transparent,
-                                                  width: width * 0.85,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                      snapshot
-                                                          .data!
-                                                          .articles![index]
-                                                          .title
-                                                          .toString(),
-                                                      maxLines: 3,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 17,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: width * 0.85,
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8),
-                                                    child: Text(
-                                                      snapshot
-                                                          .data!
-                                                          .articles![index]
-                                                          .description
-                                                          .toString(),
-                                                      maxLines: 2,
-                                                      overflow:
-                                                          TextOverflow.fade,
-                                                      style:
-                                                          GoogleFonts.poppins(
-                                                              fontSize: 11,
-                                                              color:
-                                                                  Colors.grey,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: height * 0.02,
-                                                ),
-                                                Container(
-                                                  width: width * 0.85,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      Text(
+                                        Positioned(
+                                          bottom: 5,
+                                          child: Card(
+                                            color: Colors.grey[800],
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Container(
+                                              height: height * 0.22,
+                                              width: width * 0.80,
+                                              color: Colors.transparent,
+                                              alignment: Alignment.bottomCenter,
+                                              child: Center(
+                                                  child: Column(
+                                                children: [
+                                                  Container(
+                                                    color: Colors.transparent,
+                                                    width: width * 0.85,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
                                                         snapshot
                                                             .data!
                                                             .articles![index]
-                                                            .source!
-                                                            .name
+                                                            .title
                                                             .toString(),
                                                         maxLines: 3,
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style:
                                                             GoogleFonts.poppins(
-                                                                fontSize: 11,
-                                                                color:
-                                                                    Colors.blue,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 17,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w700),
                                                       ),
-                                                      Text(
-                                                        format.format(datetime),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: width * 0.85,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 8),
+                                                      child: Text(
+                                                        snapshot
+                                                            .data!
+                                                            .articles![index]
+                                                            .description
+                                                            .toString(),
+                                                        maxLines: 2,
+                                                        overflow:
+                                                            TextOverflow.fade,
                                                         style:
                                                             GoogleFonts.poppins(
                                                                 fontSize: 11,
-                                                                color: Colors
-                                                                    .white,
+                                                                color:
+                                                                    Colors.grey,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500),
+                                                                        .w400),
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                )
-                                              ],
-                                            )),
+                                                  SizedBox(
+                                                    height: height * 0.02,
+                                                  ),
+                                                  Container(
+                                                    width: width * 0.85,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        Text(
+                                                          snapshot
+                                                              .data!
+                                                              .articles![index]
+                                                              .source!
+                                                              .name
+                                                              .toString(),
+                                                          maxLines: 3,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize: 11,
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                        ),
+                                                        Text(
+                                                          format
+                                                              .format(datetime),
+                                                          style: GoogleFonts
+                                                              .poppins(
+                                                                  fontSize: 11,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
+                                            ),
                                           ),
-                                        ),
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }),
-                    );
-                  }
-                }),
+                              );
+                            }),
+                      );
+                    }
+                  }),
+            ),
           ),
         ],
       ),

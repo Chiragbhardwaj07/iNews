@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:inews/utils/shareSheet.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:share_plus/share_plus.dart';
 
 class NewsDetailScreen extends StatefulWidget {
   String newsImage;
@@ -49,6 +50,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
               IconButton(
                   onPressed: () {
                     showShareBottomSheet(context);
+                    // Share.share('check out my website https://example.com');
                   },
                   icon: Icon(Icons.share))
             ],
