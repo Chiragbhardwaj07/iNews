@@ -5,8 +5,8 @@ import 'package:inews/models/repository/news_repository.dart';
 class NewsViewModel {
   final _rep = NewsRepository();
 
-  Future<NewsChannelHeadlinesModel> FetchNewsChannelapi() async {
-    final response = await _rep.FetchNewsChannelapi();
+  Future<NewsChannelHeadlinesModel> FetchNewsChannelapi(String location) async {
+    final response = await _rep.FetchNewsChannelapi(location);
     return response;
   }
 

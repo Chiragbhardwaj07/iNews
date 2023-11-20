@@ -10,7 +10,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool switchValue = false;
   bool switchValue1 = false;
-  bool switchValue2 = false;
+  bool switchValue2 = true;
   bool switchValue4 = false;
   String selectedValue = 'English';
   String selectedValue1 = 'India';
@@ -35,7 +35,10 @@ class _SettingsState extends State<Settings> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(Icons.arrow_back_ios)),
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        )),
                     SizedBox(
                       width: 10,
                     ),

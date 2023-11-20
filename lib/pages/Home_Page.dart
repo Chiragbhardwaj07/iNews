@@ -21,6 +21,7 @@ class Home_Page extends StatefulWidget {
 
 class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
   NewsViewModel newsViewModel = NewsViewModel();
+  String location = 'us';
 
   final format = DateFormat('MMMM dd, yyyy');
   @override
@@ -31,7 +32,32 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: ComplexDrawer(),
+      drawer: ComplexDrawer(
+        onButtonPressedin: () {
+          // Change the value of the string when the button is pressed
+          setState(() {
+            location = "in";
+          });
+        },
+        onButtonPressedus: () {
+          // Change the value of the string when the button is pressed
+          setState(() {
+            location = "us";
+          });
+        },
+        onButtonPressedfr: () {
+          // Change the value of the string when the button is pressed
+          setState(() {
+            location = "fr";
+          });
+        },
+        onButtonPressedch: () {
+          // Change the value of the string when the button is pressed
+          setState(() {
+            location = "ru";
+          });
+        },
+      ),
       appBar: AppBar(
         iconTheme: IconTheme.of(context).copyWith(
           color: Colors.white,
@@ -41,21 +67,21 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
         actions: [
           IconButton(
               onPressed: () {
-                showOverlay(context);
-              },
-              icon: FaIcon(
-                Icons.grid_view_rounded,
-                color: Colors.white,
-              )),
-          IconButton(
-              onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Search(),
                     ));
               },
-              icon: Icon(Icons.search))
+              icon: Icon(Icons.search)),
+          IconButton(
+              onPressed: () {
+                showOverlay(context);
+              },
+              icon: FaIcon(
+                Icons.grid_view_rounded,
+                color: Colors.white,
+              )),
         ],
         elevation: 0,
         title: Text(
@@ -70,7 +96,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
             height: height * 0.30,
             width: width,
             child: FutureBuilder(
-                future: newsViewModel.FetchNewsChannelapi(),
+                future: newsViewModel.FetchNewsChannelapi(location),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
@@ -341,7 +367,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                               child: Text(
                                 'Show All',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0xFFBEDE61),
+                                  color: Colors.blue[800],
                                   fontSize: 7.69,
                                   fontWeight: FontWeight.w400,
                                   height: 0,
@@ -567,7 +593,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                               child: Text(
                                 'Show All',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0xFFBEDE61),
+                                  color: Colors.blue[800],
                                   fontSize: 7.69,
                                   fontWeight: FontWeight.w400,
                                   height: 0,
@@ -850,7 +876,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                               child: Text(
                                 'Show All',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0xFFBEDE61),
+                                  color: Colors.blue[800],
                                   fontSize: 7.69,
                                   fontWeight: FontWeight.w400,
                                   height: 0,
@@ -1133,7 +1159,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                               child: Text(
                                 'Show All',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0xFFBEDE61),
+                                  color: Colors.blue[800],
                                   fontSize: 7.69,
                                   fontWeight: FontWeight.w400,
                                   height: 0,
@@ -1415,7 +1441,7 @@ class _Home_PageState extends State<Home_Page> with TickerProviderStateMixin {
                               child: Text(
                                 'Show All',
                                 style: GoogleFonts.poppins(
-                                  color: Color(0xFFBEDE61),
+                                  color: Colors.blue[800],
                                   fontSize: 7.69,
                                   fontWeight: FontWeight.w400,
                                   height: 0,

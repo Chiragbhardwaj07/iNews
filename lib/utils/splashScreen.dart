@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           fontSize: 28),
                     ),
                     SizedBox(
-                      height: height * 0.87,
+                      height: height * 0.85,
                     ),
                     SpinKitChasingDots(
                       size: 35,

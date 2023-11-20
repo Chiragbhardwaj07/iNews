@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:inews/pages/category_page.dart';
+import 'package:inews/pages/settings.dart';
 import 'package:inews/pages/test.dart';
 
 class ComplexDrawer extends StatefulWidget {
-  const ComplexDrawer({Key? key}) : super(key: key);
+  final VoidCallback onButtonPressedin;
+  final VoidCallback onButtonPressedus;
+  final VoidCallback onButtonPressedch;
+  final VoidCallback onButtonPressedfr;
+  const ComplexDrawer(
+      {Key? key,
+      required this.onButtonPressedin,
+      required this.onButtonPressedch,
+      required this.onButtonPressedfr,
+      required this.onButtonPressedus})
+      : super(key: key);
 
   @override
   _ComplexDrawerState createState() => _ComplexDrawerState();
@@ -44,19 +55,33 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
               itemCount: cdms.length,
               itemBuilder: (BuildContext context, int index) {
                 //  if(index==0) return controlTile();
-
                 CDM cdm = cdms[index];
                 bool selected = selectedIndex == index;
 
                 return cdms[index].submenus.isEmpty
                     ? ListTile(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    Category_page(categ: 'new'),
-                              ));
+                          if (index == 4) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Settings(),
+                                ));
+                          } else if (index == 3) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Category_page(categ: 'new'),
+                                ));
+                          } else if (index == 2) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      Category_page(categ: 'trending'),
+                                ));
+                          }
                         },
                         leading: Icon(cdm.icon, color: Colors.white),
                         title: Text(
@@ -94,7 +119,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                                 color: Colors.white,
                               ),
                         children: cdm.submenus.map((subMenu) {
-                          return sMenuButton(subMenu, false);
+                          return sMenuButton(subMenu, false, index);
                         }).toList());
               },
             ),
@@ -137,6 +162,26 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
                       setState(() {
                         selectedIndex = index;
                       });
+                      if (index == 4) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Settings(),
+                            ));
+                      } else if (index == 3) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Category_page(categ: 'new'),
+                            ));
+                      } else if (index == 2) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  Category_page(categ: 'trending'),
+                            ));
+                      }
                     },
                     child: Container(
                       height: 45,
@@ -201,7 +246,7 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
       height: isValidSubMenu ? submenus.length.toDouble() * 37.5 : 45,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: isValidSubMenu ? Colors.blueGrey : Colors.transparent,
+          color: isValidSubMenu ? Colors.grey : Colors.transparent,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(8),
             bottomRight: Radius.circular(8),
@@ -211,23 +256,41 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
           itemCount: isValidSubMenu ? submenus.length : 0,
           itemBuilder: (context, index) {
             String subMenu = submenus[index];
-            return sMenuButton(subMenu, index == 0);
+            return sMenuButton(
+              subMenu,
+              index == 0,
+              index,
+            );
           }),
     );
   }
 
-  Widget sMenuButton(String subMenu, bool isTitle) {
+  Widget sMenuButton(
+    String subMenu,
+    bool isTitle,
+    int mindex,
+  ) {
     return InkWell(
       onTap: () {
         //handle the function
         //if index==0? donothing: doyourlogic here
+
+        if (subMenu == "India") {
+          widget.onButtonPressedin();
+        } else if (subMenu == "US") {
+          widget.onButtonPressedus();
+        } else if (subMenu == "Russia") {
+          widget.onButtonPressedch();
+        } else if (subMenu == "France") {
+          widget.onButtonPressedfr();
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(subMenu,
             style: GoogleFonts.poppins(
               fontSize: isTitle ? 17 : 14,
-              color: isTitle ? Colors.white : Colors.grey,
+              color: isTitle ? Colors.black : Colors.white,
               fontWeight: FontWeight.bold,
             )),
       ),
@@ -235,9 +298,8 @@ class _ComplexDrawerState extends State<ComplexDrawer> {
   }
 
   static List<CDM> cdms = [
-    CDM(Icons.grid_view, "Category", [], '/test'),
     CDM(Icons.location_on_outlined, "Locations",
-        ["US", "England", "India", "China"], '/test'),
+        ["US", "India", "France", "Russia"], '/test'),
     CDM(Icons.settings_input_antenna, "Channels", ["BCC", "CNN", "Hindustan"],
         '/test'),
     CDM(Icons.trending_up, "Trending", [], '/test'),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inews/pages/Home_Page.dart';
 import 'package:inews/pages/category_page.dart';
-import 'package:inews/pages/splash.dart';
 import 'package:inews/utils/splashScreen.dart';
 import 'package:inews/pages/test.dart';
 
