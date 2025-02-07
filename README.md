@@ -99,10 +99,10 @@ iNews is built to streamline the way users access news by integrating content fr
 
 ### Prerequisites
 
-- **Node.js:**  
-  Version 14 or above.
-- **Python:**  
-  Version 3.8 or above (for data processing scripts).
+- **Flutter:**  
+  Latest Version.
+- **Emulator or Physical Device:**  
+  To run the application.
 - **Git:**  
   For cloning the repository.
 - **A modern web browser:**  
